@@ -1,9 +1,8 @@
-import React, { act } from 'react';
-import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
 
-//Estilos
-
+// Estilos con styled-components
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -11,7 +10,7 @@ const Container = styled.div`
   align-items: center;
   min-height: 100vh;
   font-family: Arial, sans-serif;
-`
+`;
 
 const Button = styled.button`
   border-radius: 8px;
@@ -24,49 +23,48 @@ const Button = styled.button`
   a {
     text-decoration: none;
   }
-    
+
   &:hover {
     background-color: #808080;
     color: white;
   }
-    
-`
+`;
 const ButtonRojo = styled(Button)`
   &:hover {
     background-color: #ff0000;
   }
-`
+`;
 const ButtonVerde = styled(Button)`
   &:hover {
     background-color: #008000;
-  } 
-`
+  }
+`;
 
 const VehicleLastDrop = () => {
   const navigate = useNavigate();
 
   const handleDeleteLastVehicle = () => {
-    fetch('http://localhost:3000/vehicles')
-      .then(response => response.json())
-      .then(data => {
+    fetch("http://localhost:3000/vehicles")
+      .then((response) => response.json())
+      .then((data) => {
         fetch(`http://localhost:3000/vehicles`, {
-          method: 'DELETE',
+          method: "DELETE",
         })
-          .then(response => {
+          .then((response) => {
             if (response.ok) {
-              alert('Último vehículo eliminado con éxito');
-              navigate('/');
+              alert("Último vehículo eliminado con éxito");
+              navigate("/");
             } else {
-              alert('Error al eliminar el vehículo');
+              alert("Error al eliminar el vehículo");
             }
           })
-          .catch(error => console.error('Error:', error));
+          .catch((error) => console.error("Error:", error));
       })
-      .catch(error => console.error('Error:', error));
+      .catch((error) => console.error("Error:", error));
   };
 
   const handleGoBack = () => {
-    navigate('/');
+    navigate("/");
   };
 
   return (
@@ -75,13 +73,12 @@ const VehicleLastDrop = () => {
       <p>¿Está seguro de que desea eliminar el último vehículo?</p>
       <div>
         <ButtonVerde onClick={handleGoBack}>No, regresar</ButtonVerde>
-        <ButtonRojo onClick={handleDeleteLastVehicle}>Si, eliminar el último vehículo</ButtonRojo>
+        <ButtonRojo onClick={handleDeleteLastVehicle}>
+          Si, eliminar el último vehículo
+        </ButtonRojo>
       </div>
     </Container>
   );
 };
 
 export default VehicleLastDrop;
-
-
-
